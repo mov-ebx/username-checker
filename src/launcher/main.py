@@ -133,16 +133,8 @@ while True:
                 else:
                     use_proxies = False
                 proxies_path = proxies_path if use_proxies else ""
-                try:
-                    threads_count = int(input("\nThreads count (default 1): "))
-                    if threads_count <= 0:
-                        error('1')
-                except:
-                    threads_count = 1
-                    print("Defaulting to 1")
                 print("\nRunning "+checker[:-3]+"...")
-                #print(f"\n\nArgs (debug)\n  Threads: {threads_count}\n  Usernames: {username_path}\n  Proxies: {proxies_path}\n")
-                __import__('checkers.'+checker[:-3], fromlist=[None]).run(threads_count, username_path, proxies_path)
+                __import__('checkers.'+checker[:-3], fromlist=[None]).run(usernames=username_path, proxies_path=proxies_path)
                 print("\nDone!\n")
             except:
                 print("\nFailed.\n")
