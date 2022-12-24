@@ -83,6 +83,7 @@ except IndexError:
 
 # Command line
 checkers = os.listdir(DIR+'/checkers/')
+checkers = [f for f in checkers if f.endswith('py')]
 presets = os.listdir(DIR+'/presets/')
 print("Commands:\n - help\n - exit\n - clear\n - checkers\n - run [id]\n")
 while True:
@@ -95,9 +96,8 @@ while True:
             print('\ncheckers:')
             i = 1
             for checker in checkers:
-                if checker.endswith('.py'):
-                    print(f' {i}) {checker[:-3]}')
-                    i += 1
+                print(f' {i}) {checker[:-3].replace("-",".").replace("_"," ")}')
+                i += 1
             print("")
         elif command == 'exit':
             exit(0)
@@ -107,7 +107,7 @@ while True:
             title()
         elif command == 'run':
             try:
-                checker = checkers[int(args)]
+                checker = checkers[int(args)-1]
                 print(f'\nSelected {checker}\n')
                 print("Select your username list:\n")
                 i = 1
@@ -136,7 +136,8 @@ while True:
                 print("\nRunning "+checker[:-3]+"...")
                 __import__('checkers.'+checker[:-3], fromlist=[None]).run(usernames=username_path, proxies_path=proxies_path)
                 print("\nDone!\n")
-            except:
+            except Exception as e:
+                print(e)
                 print("\nFailed.\n")
     except:
         print("\n\nGoodbye!")
