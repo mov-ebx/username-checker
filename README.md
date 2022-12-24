@@ -24,7 +24,7 @@ There is also support for adding your own checkers by supplying an endpoint. It'
 
 ## Star goals
 
-5 :star: - Adding multi-threading
+5 :star: - Adding multi-threading (in progress)
 
 7 :star: - More advanced custom checkers
 
