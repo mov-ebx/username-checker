@@ -1,10 +1,13 @@
 {
-    "custom.py":"0.1",
-    "GitHub.py":"0.1",
-    "Replit.py":"0.2",
+    "custom.py":"0.6",
+    "GitHub.py":"0.6",
+    "Replit.py":"0.6",
     "Roblox.py":"0.2",
     "Twitter.py":"0.2",
-    "Chess-com.py":"0.3",
+    "Chess-com.py":"0.6",
     "Instagram.py":"0.4",
-    "Solo-to.py":"0.5"
+    "Solo-to.py":"0.5",
+    "Tiktok.py":"0.6",
+    "twitch.py":"0.6",
+    "Speedrun-com.py":"0.6"
 }

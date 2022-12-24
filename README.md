@@ -13,12 +13,16 @@
 
 ## List of supported websites
 
-- Instagram
-- Twitter
-- Chess.com
-- Replit
-- Roblox
-- GitHub
+- [Chess.com](https://chess.com)
+- [GitHub](https://github.com)
+- [Instagram](https://instagram.com)
+- [Replit](https://repl.it/)
+- [Roblox](https://roblox.com)
+- [Solo.to](https://solo.to)
+- [Speedrun.com](https://speedrun.com)
+- [TikTok](https://tiktok.com)
+- [Twitch](https://twitch.tv)
+- [Twitter](https://twitter.com)
 
 There is also support for adding your own checkers by supplying an endpoint. It's still primative, however if we reach 7 stars, I'll update it.
 

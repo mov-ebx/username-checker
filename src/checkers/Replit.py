@@ -27,11 +27,11 @@ def run(usernames:str, proxies_path:str):
         if continue_with == False:
             continue
         elif this_use_proxies:
-            r = requests.get(url, proxies=proxy)
+            r = requests.head(url, proxies=proxy)
             if r.status_code == status:
                 valid.append(username)
         else:
-            r = requests.get(url)
+            r = requests.head(url)
             if r.status_code == status:
                 valid.append(username+'\n')
     open('hits.txt','w').writelines(valid)
