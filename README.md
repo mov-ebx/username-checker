@@ -11,15 +11,28 @@
     </a>
 </div>
 
+## List of supported websites
+
+- Instagram
+- Twitter
+- Chess.com
+- Replit
+- Roblox
+- GitHub
+
+There is also support for adding your own checkers by supplying an endpoint. It's still primative, however if we reach 7 stars, I'll update it.
+
 ## Star goals
 
 5 :star: - Adding multi-threading
+
+7 :star: - More advanced custom checkers
 
 10 :star: - Improve speeds
 
 ## How do you use the checkers?
 
-While you can use each checker indivdually in the [checkers directory](src/checkers/), the easiest way to use the checkers, is by using the launcher. The launcher is available in the [Releases](https://github.com/mov-ebx/username-checker/releases/latest) tab.
+While you can use each checker individually in the [checkers directory](src/checkers/), the easiest way to use the checkers, is by using the launcher. The launcher is available in the [Releases](https://github.com/mov-ebx/username-checker/releases/latest) tab.
 
 All you need is Python installed and the necessary [requirements](src/requirements.txt). I wrote the scripts in Python 3.10.6, so I'd recommend you [install that version](https://www.python.org/downloads/release/python-3106/). However, later versions should work too.
 
