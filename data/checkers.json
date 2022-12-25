@@ -7,7 +7,10 @@
     "Chess-com.py":"0.6",
     "Instagram.py":"0.4",
     "Solo-to.py":"0.5",
-    "Tiktok.py":"0.6",
+    "TikTok.py":"0.6",
     "twitch.py":"0.6",
-    "Speedrun-com.py":"0.6"
+    "Speedrun-com.py":"0.6",
+    "YouTube.py":"0.7",
+    "Minecraft.py":"0.7",
+    "Pastebin.py":"0.7"
 }

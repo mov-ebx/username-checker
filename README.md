@@ -16,6 +16,8 @@
 - [Chess.com](https://chess.com)
 - [GitHub](https://github.com)
 - [Instagram](https://instagram.com)
+- [Minecraft](https://minecraft.net)
+- [Pastebin](https://pastebin.com)
 - [Replit](https://repl.it/)
 - [Roblox](https://roblox.com)
 - [Solo.to](https://solo.to)
@@ -23,6 +25,7 @@
 - [TikTok](https://tiktok.com)
 - [Twitch](https://twitch.tv)
 - [Twitter](https://twitter.com)
+- [YouTube](https://youtube.com)
 
 There is also support for adding your own checkers by supplying an endpoint. It's still primative, however if we reach 7 stars, I'll update it.
 
