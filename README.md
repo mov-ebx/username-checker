@@ -1,6 +1,5 @@
 <div align="center">
     <h1>Username checker</h1>
-    <img width="400" src="https://i.giphy.com/media/WJOq6yKop0A1y/giphy.gif">
     <h3>Collection of username checkers for various platforms</h3>
     <h5>[WARNING]<br>Using this without proxies will likely leave you ratelimited and possibly banned from using any of these services.</h5>
 
