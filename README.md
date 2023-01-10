@@ -1,6 +1,6 @@
 <div align="center">
     <h1>Username checker</h1>
-    <h3>Collection of username checkers for various platforms</h3>
+    <h3>Collection of username checkers for various platforms. Proxyless and proxy support!</h3>
     <h5>[WARNING]<br>Using this without proxies will likely leave you ratelimited and possibly banned from using any of these services.</h5>
 
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-bluesvg)](https://www.python.org/download/releases/3.0/)
@@ -32,9 +32,9 @@ There is also support for adding your own checkers by supplying an endpoint. It'
 
 5 :star: - Adding multi-threading (in progress)
 
-7 :star: - More advanced custom checkers
+~~7 :star: - More advanced custom checkers~~ (complete)
 
-10 :star: - Improve speeds
+~~10~~ 15 :star: - Improve speeds
 
 ## How do you use the checkers?
 
