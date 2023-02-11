@@ -33,6 +33,8 @@ def download_checkers():
     VER = open(DIR+'/version', 'r').readlines()[0]
     print('Checking for updates...')
     checkers, updated, downloaded = list(CHECKERS), 0, 0
+    if not os.path.exists(DIR+'/checkers/'):
+            os.makedirs(DIR+'/checkers/')
     for i in range(len(CHECKERS)):
         if os.path.exists(DIR+'/checkers/'+checkers[i]) == False:
             print(' + Downloading '+checkers[i]+'...')
@@ -45,6 +47,22 @@ def download_checkers():
         #else:
         #    print(' + '+checkers[i]+' is up to date!')
     print('Updated '+str(updated)+' and downloaded '+str(downloaded)+' checkers.\n')
+    url = 'https://raw.githubusercontent.com/'+REPO+'/main/data/presets/'
+    presets, updated, downloaded = list(PRESETS), 0, 0
+    if not os.path.exists(DIR+'/presets/'):
+            os.makedirs(DIR+'/presets/')
+    for i in range(len(PRESETS)):
+        if os.path.exists(DIR+'/presets/'+presets[i]) == False:
+            print(' + Downloading '+presets[i]+'...')
+            open(DIR+'/presets/'+presets[i], 'x').writelines(requests.get(url+presets[i]).text)
+            downloaded += 1
+        elif float(PRESETS[presets[i]]) > float(VER):
+            print(' + Updating '+presets[i]+'...')
+            open(DIR+'/presets/'+presets[i], 'w').writelines(requests.get(url+presets[i]).text)
+            updated += 1
+        #else:
+        #    print(' + '+presets[i]+' is up to date!')
+    print('Updated '+str(updated)+' and downloaded '+str(downloaded)+' presets.\n')
     open(DIR+'/version', 'w').writelines(VERS)
     print('')
 if os.path.exists(DIR+'/version') == False:
@@ -127,6 +145,6 @@ while True:
             except Exception as e:
                 print(Style.RESET_ALL+'\nError '+str(e))
                 print('\nFailed.\n')
-    except Exception as e:
+    except:
         print(Style.RESET_ALL+'\n\nGoodbye!')
         exit()
