@@ -1,54 +1,42 @@
 
-import requests, random, json
+import requests, random, colorama, json
 
-def run(usernames:str, proxies_path:str):
-    # Proxy settings
-    use_proxies = False if proxies_path == "" else True
-    usernames = open(usernames)
-    if use_proxies:
-        proxies = open(proxies_path)
-    continue_with = None
-    if use_proxies:
-        proxies_list = proxies.readlines()
-    # Variables
+endpoint = ""
+status = 0
+data = ""
+headers = {}
+method = ""
+
+def check(username:str, proxy:str=""):
+    if proxy != "":
+        r = getattr(requests, method.lower())(endpoint.replace("{[x]}",username), headers=headers, data=data, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+    else:
+        r = getattr(requests, method.lower())(endpoint.replace("{[x]}",username), headers=headers, data=data)
+    if r.status_code == 404:
+        return username
+    return None
+
+def run(usernames_path:str="", proxies_path:str="", usernames:str="!DO NOT USE THIS PARAMETER!"):
     valid = []
+
+    global endpoint, status, data, headers, method
+
     print("\nwrite {[x]} for the username if needed")
-    url = input("API Endpoint: ")
+    endpoint = input("API Endpoint: ")
     status = int(input("Status code if hit (e.g. 404): "))
     data = input("Data (leave empty if empty): ")
     data = None if data == "" else data
     headers = input("Request headers (leave empty if empty, write it in JSON please): ")
-    headers = None if headers == "" else json.loads(headers)
+    headers = {} if headers == "" else json.loads(headers)
     method = input("Requests method (e.g. GET, POST, DELETE, PUT, HEAD, etc): ")
-    # Username checker
-    for username in usernames:
+
+    if usernames != "!DO NOT USE THIS PARAMETER!":
+        print(colorama.Fore.RED+colorama.Style.BRIGHT+"\n! PLEASE UPDATE YOUR LAUNCHER !"+colorama.Style.RESET_ALL+"\nWe will continue to provide backwards compatability to previous launcher versions, however we remind you to update, as you are missing out on key features, such as multi-threading and improved speeds!\n")
+        open("hits.txt", "w").write("\n".join(run(usernames_path=usernames, proxies_path=proxies_path)))
+        return
+    for username in open(usernames_path):
         username = username.strip('\n')
-        this_use_proxies = use_proxies
-        site = url.replace("{[x]}", username)
-        data = data.replace("{[x]}", username) if data != None else data
-        headers = headers.replace("{[x]}", username) if headers != None else headers
-        try:
-            if use_proxies:
-                proxy = proxies_list[random.randint(0, len(proxies_list)-1)]
-                proxy = {proxy.split('|')[0]:proxy.split('|')[1].strip('\n')}
-        except:
-            if continue_with == None:
-                print("Failed to load a proxy. Perhaps your proxies.txt is empty?")
-                continue_with = False if input("Continue with proxies? (y/N): ").lower().startswith("n") else True
-            this_use_proxies = False
-        if continue_with == False:
-            continue
-        elif this_use_proxies:
-            r = getattr(requests, method.lower())(site, proxies=proxy, headers=headers, data=data)
-            if r.status_code == status:
-                valid.append(username)
-        else:
-            r = getattr(requests, method.lower())(site, headers=headers, data=data)
-            print(r.status_code)
-            if r.status_code == status:
-                valid.append(username+'\n')
-    open('hits.txt','w').writelines(valid)
-    print('\nSaved valid usernames to hits.txt')
-    usernames.close()
-    if use_proxies:
-        proxies.close()
+        hit = check(username) if proxies_path=="" else check(username, random.choice(open(proxies_path)))
+        if hit == username:
+            valid.append(username)
+    return valid

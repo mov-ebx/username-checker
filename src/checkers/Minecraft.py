@@ -1,43 +1,26 @@
 
-import requests, random
+import requests, random, colorama
 
-def run(usernames:str, proxies_path:str):
-    use_proxies = False if proxies_path == "" else True
-    usernames = open(usernames)
-    if use_proxies:
-        proxies = open(proxies_path)
-    continue_with = None
-    if use_proxies:
-        proxies_list = proxies.readlines()
+endpoint = "https://api.mojang.com/users/profiles/minecraft/"
+
+def check(username:str, proxy:str=""):
+    if proxy != "":
+        r = requests.head(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+    else:
+        r = requests.head(endpoint+username)
+    if r.status_code == 204:
+        return username
+    return None
+
+def run(usernames_path:str="", proxies_path:str="", usernames:str="!DO NOT USE THIS PARAMETER!"):
     valid = []
-    for username in usernames:
+    if usernames != "!DO NOT USE THIS PARAMETER!":
+        print(colorama.Fore.RED+colorama.Style.BRIGHT+"\n! PLEASE UPDATE YOUR LAUNCHER !"+colorama.Style.RESET_ALL+"\nWe will continue to provide backwards compatability to previous launcher versions, however we remind you to update, as you are missing out on key features, such as multi-threading and improved speeds!\n")
+        open("hits.txt", "w").write("\n".join(run(usernames_path=usernames, proxies_path=proxies_path)))
+        return
+    for username in open(usernames_path):
         username = username.strip('\n')
-        this_use_proxies = use_proxies
-        url = "https://api.mojang.com/users/profiles/minecraft/"+username
-        try:
-            if use_proxies:
-                proxy = proxies_list[random.randint(0, len(proxies_list)-1)]
-                proxy = {proxy.split('|')[0]:proxy.split('|')[1].strip('\n')}
-        except:
-            if continue_with == None:
-                print("Failed to load a proxy. Perhaps your proxies.txt is empty?")
-                continue_with = False if input("Continue with proxies? (y/N): ").lower().startswith("n") else True
-            this_use_proxies = False
-        try:
-            if continue_with == False:
-                continue
-            elif this_use_proxies:
-                r = requests.get(url, proxies=proxy)
-                if r.status_code == 204:
-                    valid.append(username)
-            else:
-                r = requests.get(url)
-                if r.status_code == 204:
-                    valid.append(username+'\n')
-        except:
-            pass
-    open('hits.txt','w').writelines(valid)
-    print('\nSaved valid usernames to hits.txt')
-    usernames.close()
-    if use_proxies:
-        proxies.close()
+        hit = check(username) if proxies_path=="" else check(username, random.choice(open(proxies_path)))
+        if hit == username:
+            valid.append(username)
+    return valid

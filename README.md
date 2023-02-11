@@ -26,15 +26,17 @@
 - [Twitter](https://twitter.com)
 - [YouTube](https://youtube.com)
 
-There is also support for adding your own checkers by supplying an endpoint. It's still primative, however if we reach 7 stars, I'll update it.
+There is also support for adding your own checkers by supplying an API endpoint.
 
 ## Star goals
 
-5 :star: - Adding multi-threading (in progress)
+- [x] ~~5:star: Adding multi-threading~~
 
-~~7 :star: - More advanced custom checkers~~ (complete)
+- [x] ~~7:star: More advanced custom checkers~~
 
-~~10~~ 15 :star: - Improve speeds
+- [x] ~~10:star: Improve speeds~~
+
+- [ ] 15:star: More checkers!
 
 ## How do you use the checkers?
 
@@ -55,8 +57,22 @@ import checkers.example
 example.run(
     "words.txt", # usernames list path
     "proxies.txt" # proxies path (leave empty if no proxies)
-)
+) # returns list of hits
 ```
+
+For the run function, if you check the code, you might see a "usernames" parameters. DO NOT USE THAT PARAMETER, that is used by previous versions of the launcher, and allows for backwards compatability support. If you use that rather than the "usernames_path" parameter, instead of returning a set of all the valid usernames, it will rather return nothing and automatically download the valid usernames to a file called "hits.txt". Make what you will of this information.
+
+You can also check 1 username at a time, here's an example:
+
+```py
+import checkers.example
+example.check(
+    "Example", # username
+    "127.0.0.1:80" # proxy (leave empty if no proxy)
+) # returns the username if valid, or None if its not
+```
+
+As far as I know, the "custom" checker doesn't work with the individual "check" function, however the "run" function should work.
 
 ## How do I use proxies in the checker?
 
@@ -76,3 +92,9 @@ https|https://[redacted]:8080
 http|http://[redacted]:8085
 http|http://[redacted]:3128
 ```
+
+## Do I need to re-download each update?
+
+In short, no.
+
+The launcher automatically updates checkers, however some larger features such as multi-threading (support added in launcher beta 0.2) require launcher updates to use, however launcher updates are mostly QOL or bug fixes and are recommended! My goal is to make it so you can use this in any launcher version possible, with full backwards compatibility!

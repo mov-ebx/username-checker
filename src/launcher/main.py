@@ -1,5 +1,6 @@
-import os, requests
+import os, requests, random
 from colorama import Fore, Back, Style
+import concurrent.futures
 
 DIR = os.path.dirname(__file__)
 REPO = 'mov-ebx/username-checker'
@@ -10,11 +11,8 @@ PRESETS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/pre
 
 # Title
 def title():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
-    print('Launcher version 0.1b'+Fore.BLUE+'''
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print('Launcher version 0.2b'+Fore.BLUE+'''
 
 
 ,--.,--. ,---.  ,---. ,--.--.,--,--,  ,--,--.,--,--,--. ,---.  
@@ -26,69 +24,42 @@ def title():
        | .--'|  .-.  || .-. :| .--'|     /| .-. :|  .--'      
        \ `--.|  | |  |\   --.\ `--.|  \  \\\\   --.|  |         
         `---'`--' `--' `----' `---'`--'`--'`----'`--'         
-         ''' + Fore.RESET + 'created by ' + REPO.split('/')[0] + (' ' * (33 - len(REPO.split('/')[0]))) + "\n" + Fore.RESET)
+         ''' + Fore.RESET + 'created by ' + REPO.split('/')[0] + (' ' * (33 - len(REPO.split('/')[0]))) + '\n' + Fore.RESET)
 title()
 
 # Auto updater
 def download_checkers():
+    url = 'https://raw.githubusercontent.com/'+REPO+'/main/src/checkers/'
     VER = open(DIR+'/version', 'r').readlines()[0]
-    print('Downloading checkers!\n')
-    for checker in CHECKERS:
-        url = 'https://raw.githubusercontent.com/'+REPO+'/main/src/checkers/'+checker
-        if os.path.exists(DIR+'/checkers/'+checker) == False:
-            print(' + Downloading '+checker+'...')
-            open(DIR+'/checkers/'+checker, 'x').writelines(requests.get(url).text)
-        elif float(CHECKERS[checker]) > float(VER):
-            print(' + Updating '+checker+'...')
-            open(DIR+'/checkers/'+checker, 'w').writelines(requests.get(url).text)
-        else:
-            print(' + '+checker+' is up to date!')
+    print('Checking for updates...')
+    checkers, updated, downloaded = list(CHECKERS), 0, 0
+    for i in range(len(CHECKERS)):
+        if os.path.exists(DIR+'/checkers/'+checkers[i]) == False:
+            print(' + Downloading '+checkers[i]+'...')
+            open(DIR+'/checkers/'+checkers[i], 'x').writelines(requests.get(url+checkers[i]).text)
+            downloaded += 1
+        elif float(CHECKERS[checkers[i]]) > float(VER):
+            print(' + Updating '+checkers[i]+'...')
+            open(DIR+'/checkers/'+checkers[i], 'w').writelines(requests.get(url+checkers[i]).text)
+            updated += 1
+        #else:
+        #    print(' + '+checkers[i]+' is up to date!')
+    print('Updated '+str(updated)+' and downloaded '+str(downloaded)+' checkers.\n')
     open(DIR+'/version', 'w').writelines(VERS)
     print('')
 if os.path.exists(DIR+'/version') == False:
     open(DIR+'/version', 'w').writelines('0')
-try:
-    if os.path.exists(DIR+'/checkers') == False:
-        os.mkdir(DIR+'/checkers')
-        download_checkers()
-    elif open(DIR+'/version', 'r+').readlines()[0] != VERS:
-        download_checkers()
-except IndexError:
-    download_checkers()
-def download_presets():
-    VER = open(DIR+'/version', 'r').readlines()[0]
-    print('Downloading username presets!\n')
-    for preset in PRESETS:
-        url = 'https://raw.githubusercontent.com/'+REPO+'/main/data/presets/'+preset
-        if os.path.exists(DIR+'/presets/'+preset) == False:
-            print(' + Downloading '+preset+'...')
-            open(DIR+'/presets/'+preset, 'x').writelines(requests.get(url).text)
-        elif float(PRESETS[preset]) > float(VER):
-            print(' + Updating '+preset+'...')
-            open(DIR+'/presets/'+preset, 'w').writelines(requests.get(url).text)
-        else:
-            print(' + '+preset+' is up to date!')
-    open(DIR+'/version', 'w').writelines(VERS)
-    print('')
-if os.path.exists(DIR+'/version') == False:
-    open(DIR+'/version', 'w').writelines('0')
-try:
-    if os.path.exists(DIR+'/presets') == False:
-        os.mkdir(DIR+'/presets')
-        download_presets()
-    elif open(DIR+'/version', 'r+').readlines()[0] != VERS:
-        download_presets()
-except IndexError:
-    download_presets()
+download_checkers()
 
 # Command line
 checkers = os.listdir(DIR+'/checkers/')
 checkers = [f for f in checkers if f.endswith('py')]
 presets = os.listdir(DIR+'/presets/')
-print("Commands:\n - help\n - exit\n - clear\n - checkers\n - run [id]\n")
+print('Commands:\n - help\n - exit\n - clear\n - checkers\n - run [id]\n')
 while True:
     try:
-        command = input('> ')
+        command = input('> '+Fore.BLUE)
+        print(Style.RESET_ALL)
         if len(command.rsplit(' ', 1)) > 1:
             args = command.rsplit(' ', 1)[1]
         command = command.rsplit(' ', 1)[0]
@@ -98,47 +69,64 @@ while True:
             for checker in checkers:
                 print(f' {i}) {checker[:-3].replace("-",".").replace("_"," ")}')
                 i += 1
-            print("")
+            print('')
         elif command == 'exit':
             exit(0)
         elif command == 'help':
-            print("\nCommands:\n - help\n - exit\n - clear\n - checkers\n - run [id]\n")
+            print('\nCommands:\n - help\n - exit\n - clear\n - checkers\n - run [id]\n')
         elif command == 'clear':
             title()
         elif command == 'run':
             try:
                 checker = checkers[int(args)-1]
                 print(f'\nSelected {checker}\n')
-                print("Select your username list:\n")
-                i = 1
-                for preset in presets:
-                    print(str(i)+") "+preset)
-                    i += 1
+                print('Select your username list:\n')
+                for i in range(len(presets)):
+                    print(str(i+1)+') '+presets[i-1])
                 while True:
                     try:
-                        preset_selected = int(input("\n > "))
-                        if preset_selected <= 0 or preset_selected > i-1:
-                            error("Invalid username list ID, try again.")
+                        preset_selected = int(input('\n > '+Fore.BLUE))-1
+                        print(Style.RESET_ALL)
+                        if preset_selected <= 0 or preset_selected > i:
+                            raise 'Invalid username list ID, try again.'
                         break
                     except KeyboardInterrupt:
-                        print('')
-                        error('')
+                        raise KeyboardInterrupt
                     except:
-                        print("\nInvalid username list ID, try again.")
-                print("\nSelected "+presets[preset_selected-1])
-                username_path = os.path.dirname(__file__)+"/presets/"+presets[preset_selected-1]
-                proxies_path = os.path.dirname(__file__)+"/proxies.txt"
-                if os.path.exists(proxies_path):
-                    use_proxies = False if input("\nUse proxies? (Y/n): ").lower().startswith("n") else True
+                        print(Style.RESET_ALL+'\nInvalid username list ID, try again.')
+                print('Selected '+presets[preset_selected-1])
+                username_path = os.path.dirname(__file__)+'/presets/'+presets[preset_selected-1]
+                proxies_path = os.path.dirname(__file__)+'/proxies.txt'
+                proxies_path = ('' if input('\nUse proxies? (Y/n): '+Fore.BLUE).lower().startswith('n') else proxies_path) if os.path.exists(proxies_path) else ''
+                print(Style.RESET_ALL+'\nHow many threads would you like to use? (set as 1, less, or empty if you don\'t want multithreading):\n')
+                threads = input(' > '+Fore.BLUE)
+                print(Style.RESET_ALL+'\nRunning '+checker[:-3]+'...')
+                while True:
+                    try:
+                        threads = int(threads)
+                        break
+                    except KeyboardInterrupt:
+                        raise KeyboardInterrupt
+                    except:
+                        if threads == '':
+                            threads = 1
+                            break
+                        print(Style.RESET_ALL+'Invalid amount of threads! Try again.\n')
+                        threads = input(' > '+Fore.BLUE)
+                if threads > 1:
+                    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
+                        futures = [executor.submit(__import__('checkers.'+checker[:-3], fromlist=[None]).check, item.strip('\n'), random.choice(open(proxies_path)) if proxies_path != '' else '') for item in open(username_path).readlines()]
+                        concurrent.futures.wait(futures)
+                        results = [x for x in [future.result() for future in futures] if x is not None]
                 else:
-                    use_proxies = False
-                proxies_path = proxies_path if use_proxies else ""
-                print("\nRunning "+checker[:-3]+"...")
-                __import__('checkers.'+checker[:-3], fromlist=[None]).run(usernames=username_path, proxies_path=proxies_path)
-                print("\nDone!\n")
+                    results = __import__('checkers.'+checker[:-3], fromlist=[None]).run(username_path, proxies_path)
+                print(Style.RESET_ALL+'\nDone! Saved to hits.txt.\n')
+                open('hits.txt','w').writelines('\n'.join(results))
+            except IndexError:
+                print(Style.RESET_ALL+'\nInvalid checker ID.\nUse the "checkers" command for a list of checker IDs.\n')
             except Exception as e:
-                print(e)
-                print("\nFailed.\n")
-    except:
-        print("\n\nGoodbye!")
+                print(Style.RESET_ALL+'\nError '+str(e))
+                print('\nFailed.\n')
+    except Exception as e:
+        print(Style.RESET_ALL+'\n\nGoodbye!')
         exit()
