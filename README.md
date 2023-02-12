@@ -15,6 +15,7 @@
 - [Chess.com](https://chess.com)
 - [GitHub](https://github.com)
 - [Instagram](https://instagram.com)
+- [Lichess](https://lichess.org/)
 - [Minecraft](https://minecraft.net)
 - [Pastebin](https://pastebin.com)
 - [Replit](https://repl.it/)
@@ -36,7 +37,9 @@ There is also support for adding your own checkers by supplying an API endpoint.
 
 - [x] ~~10:star: Improve speeds~~
 
-- [ ] 15:star: More checkers!
+- [x] ~~15:star: More checkers~~
+
+- [ ] 20:star: More checkers
 
 ## How do you use the checkers?
 
