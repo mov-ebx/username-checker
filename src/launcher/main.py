@@ -5,10 +5,6 @@ import concurrent.futures
 DIR = os.path.dirname(__file__)
 REPO = 'mov-ebx/username-checker'
 
-VERS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/VERSION').text
-CHECKERS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/checkers.json').json()
-PRESETS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/presets.json').json()
-
 # Title
 def title():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -29,6 +25,9 @@ title()
 
 # Auto updater
 def download_checkers():
+    VERS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/VERSION').text
+    CHECKERS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/checkers.json').json()
+    PRESETS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/presets.json').json()
     url = 'https://raw.githubusercontent.com/'+REPO+'/main/src/checkers/'
     VER = open(DIR+'/version', 'r').readlines()[0]
     print('Checking for updates...')
@@ -105,13 +104,13 @@ while True:
                     try:
                         preset_selected = int(input('\n > '+Fore.BLUE))-1
                         print(Style.RESET_ALL)
-                        if preset_selected <= 0 or preset_selected > i:
+                        if preset_selected < 0 or preset_selected > i:
                             raise 'Invalid username list ID, try again.'
                         break
                     except KeyboardInterrupt:
                         raise KeyboardInterrupt
                     except:
-                        print(Style.RESET_ALL+'\nInvalid username list ID, try again.')
+                        print(Style.RESET_ALL+'Invalid username list ID, try again.')
                 print('Selected '+presets[preset_selected-1])
                 username_path = os.path.dirname(__file__)+'/presets/'+presets[preset_selected-1]
                 proxies_path = os.path.dirname(__file__)+'/proxies.txt'
