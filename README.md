@@ -10,17 +10,20 @@
     </a>
 </div>
 
-## List of supported websites
+## Current progress:
+<details>
+<summary>List of supported websites</summary>
 
 - [Chess.com](https://chess.com)
 - [GitHub](https://github.com)
 - [Instagram](https://instagram.com)
-- [Lichess](https://lichess.org/)
+- [Lichess](https://lichess.org)
 - [Minecraft](https://minecraft.net)
 - [Pastebin](https://pastebin.com)
-- [Replit](https://repl.it/)
+- [Replit](https://replit.com)
 - [Roblox](https://roblox.com)
 - [Solo.to](https://solo.to)
+- [Soundcloud](https://soundcloud.com)
 - [Speedrun.com](https://speedrun.com)
 - [TikTok](https://tiktok.com)
 - [Twitch](https://twitch.tv)
@@ -29,17 +32,18 @@
 
 There is also support for adding your own checkers by supplying an API endpoint.
 
-## Star goals
+</details>
+<details>
+<summary>Star goals</summary>
 
-- [x] ~~5:star: Adding multi-threading~~
+- [x] :star:5  - Adding multi-threading
+- [x] :star:7  - More advanced custom checkers
+- [x] :star:10 - Improved speeds
+- [x] :star:15 - 1 new checker
+- [x] :star:20 - 1 new checker
+- [ ] :star:30 - 5 new checkers
 
-- [x] ~~7:star: More advanced custom checkers~~
-
-- [x] ~~10:star: Improve speeds~~
-
-- [x] ~~15:star: More checkers~~
-
-- [ ] 20:star: More checkers
+</details>
 
 ## How do you use the checkers?
 
