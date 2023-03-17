@@ -1,7 +1,7 @@
 
 import requests, random, colorama, time
 
-endpoint = "https://pastebin.com/u/"
+endpoint = "https://discord.com/api/v10/invites/"
 
 def check(username:str, proxy:str=""):
     if proxy != "":

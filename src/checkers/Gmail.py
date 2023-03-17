@@ -1,7 +1,7 @@
 
 import requests, random, colorama, time
 
-endpoint = "https://pastebin.com/u/"
+endpoint = "https://mail.google.com/mail/gxlu?email="
 
 def check(username:str, proxy:str=""):
     if proxy != "":
@@ -11,7 +11,7 @@ def check(username:str, proxy:str=""):
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)
-    if r.status_code == 404:
+    elif not r.headers["Set-Cookie"]:
         return username
     return None
 

@@ -15,7 +15,10 @@
 <summary>List of supported websites</summary>
 
 - [Chess.com](https://chess.com)
+- [Discord (vanity)](https://discord.gg)
+- [Fornite](https://fortnite.com)
 - [GitHub](https://github.com)
+- [Gmail](https://gmail.com)
 - [Instagram](https://instagram.com)
 - [Lichess](https://lichess.org)
 - [Minecraft](https://minecraft.net)
@@ -25,9 +28,11 @@
 - [Solo.to](https://solo.to)
 - [Soundcloud](https://soundcloud.com)
 - [Speedrun.com](https://speedrun.com)
+- [Steam](https://store.steampowered.com)
 - [TikTok](https://tiktok.com)
 - [Twitch](https://twitch.tv)
 - [Twitter](https://twitter.com)
+- [Xbox](https://xbox.com)
 - [YouTube](https://youtube.com)
 
 There is also support for adding your own checkers by supplying an API endpoint.
@@ -41,7 +46,9 @@ There is also support for adding your own checkers by supplying an API endpoint.
 - [x] :star:10 - Improved speeds
 - [x] :star:15 - 1 new checker
 - [x] :star:20 - 1 new checker
-- [ ] :star:30 - 5 new checkers
+- [x] :star:30 - 5 new checkers
+- [ ] :star:40 - Improved speeds
+- [ ] :star:45 - 2 new checkers
 
 </details>
 

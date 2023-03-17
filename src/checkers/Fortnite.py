@@ -1,17 +1,17 @@
 
 import requests, random, colorama, time
 
-endpoint = "https://pastebin.com/u/"
+endpoint = "https://fortnite.gg/stats?player="
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = requests.head(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = requests.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = requests.head(endpoint+username)
+        r = requests.get(endpoint+username)
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)
-    if r.status_code == 404:
+    elif f"I can't find a player named “{username}“" in r.text:
         return username
     return None
 
