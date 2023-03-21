@@ -93,7 +93,7 @@ As far as I know, the "custom" checker doesn't work with the individual "check" 
 In the same directory as the launcher, add a file named proxies.txt and format it like this:
 
 ```
-type|type://host:port
+type|protocol://host:port
 ```
 
 an example is:
