@@ -47,8 +47,8 @@ There is also support for adding your own checkers by supplying an API endpoint.
 - [x] :star:15 - 1 new checker
 - [x] :star:20 - 1 new checker
 - [x] :star:30 - 5 new checkers
+- [ ] :star:35 - 2 new checkers
 - [ ] :star:40 - Improved speeds
-- [ ] :star:45 - 2 new checkers
 
 </details>
 
