@@ -3,7 +3,7 @@
     <h3>Collection of username checkers for various platforms. Proxyless and proxy support!</h3>
     <h5>[WARNING]<br>Using this without proxies will likely leave you ratelimited and possibly banned from using any of these services.</h5>
 
-[![Python 3.10](https://img.shields.io/badge/Python-3.10-bluesvg)](https://www.python.org/download/releases/3.0/)
+[![Python 3.10 and up](https://img.shields.io/badge/Python-3.10%20and%20up-bluesvg)](https://www.python.org/download/releases/3.0/)
 [![GitHub license](https://img.shields.io/badge/license-GPL%203.0-green)](./LICENSE)
     <a href="https://github.com/mov-ebx">
         <img src="https://gpvc.arturio.dev/mov-ebx">
@@ -15,14 +15,16 @@
 <summary>List of supported websites</summary>
 
 - [Chess.com](https://chess.com)
-- [Discord (vanity)](https://discord.gg)
+- [Discord](https://discord.gg) (vanity)
 - [Fornite](https://fortnite.com)
 - [GitHub](https://github.com)
 - [Gmail](https://gmail.com)
 - [Instagram](https://instagram.com)
+- [Kahoot](https://kahoot.com)
 - [Lichess](https://lichess.org)
 - [Minecraft](https://minecraft.net)
 - [Pastebin](https://pastebin.com)
+- Pornhub (haram)
 - [Replit](https://replit.com)
 - [Roblox](https://roblox.com)
 - [Solo.to](https://solo.to)
@@ -33,7 +35,7 @@
 - [Twitch](https://twitch.tv)
 - [Twitter](https://twitter.com)
 - [Xbox](https://xbox.com)
-- [YouTube](https://youtube.com)
+- [YouTube](https://youtube.com) (/c/ and @)
 
 There is also support for adding your own checkers by supplying an API endpoint.
 
@@ -47,7 +49,7 @@ There is also support for adding your own checkers by supplying an API endpoint.
 - [x] :star:15 - 1 new checker
 - [x] :star:20 - 1 new checker
 - [x] :star:30 - 5 new checkers
-- [ ] :star:35 - 2 new checkers
+- [x] :star:35 - 2 new checkers
 - [ ] :star:40 - Improved speeds
 
 </details>
