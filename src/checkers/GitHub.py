@@ -1,13 +1,13 @@
 
-import requests, random, colorama, time
+import httpx, random, colorama, time
 
 endpoint = "https://github.com/"
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = requests.head(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = httpx.head(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = requests.head(endpoint+username)
+        r = httpx.head(endpoint+username)
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)

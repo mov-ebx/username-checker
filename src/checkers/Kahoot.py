@@ -1,13 +1,13 @@
 
-import requests, random, colorama, time
+import httpx, random, colorama, time
 
 endpoint = "https://create.kahoot.it/rest/users/usernameavailable"
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = requests.get(endpoint, headers={'x-kahoot-user-identifier':username}, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = httpx.get(endpoint, headers={'x-kahoot-user-identifier':username}, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = requests.get(endpoint, headers={'x-kahoot-user-identifier':username})
+        r = httpx.get(endpoint, headers={'x-kahoot-user-identifier':username})
     if r.json().get('status') == '429':
         time.sleep(5)
         return check(username=username, proxy=proxy)

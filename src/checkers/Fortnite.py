@@ -1,13 +1,13 @@
 
-import requests, random, colorama, time
+import httpx, random, colorama, time
 
 endpoint = "https://fortnite.gg/stats?player="
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = requests.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = httpx.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = requests.get(endpoint+username)
+        r = httpx.get(endpoint+username)
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)

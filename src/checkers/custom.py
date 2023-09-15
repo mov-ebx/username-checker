@@ -1,5 +1,5 @@
 
-import requests, random, colorama, json, time
+import httpx, random, colorama, json, time
 
 endpoint = ""
 status = 0
@@ -9,9 +9,9 @@ method = ""
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = getattr(requests, method.lower())(endpoint.replace("{[x]}",username), headers=headers, data=data, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = getattr(httpx, method.lower())(endpoint.replace("{[x]}",username), headers=headers, data=data, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = getattr(requests, method.lower())(endpoint.replace("{[x]}",username), headers=headers, data=data)
+        r = getattr(httpx, method.lower())(endpoint.replace("{[x]}",username), headers=headers, data=data)
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)
@@ -31,7 +31,7 @@ def run(usernames_path:str="", proxies_path:str="", usernames:str=""):
     data = None if data == "" else data
     headers = input("Request headers (leave empty if empty, write it in JSON please): ")
     headers = {} if headers == "" else json.loads(headers)
-    method = input("Requests method (e.g. GET, POST, DELETE, PUT, HEAD, etc): ")
+    method = input("httpx method (e.g. GET, POST, DELETE, PUT, HEAD, etc): ")
 
     if usernames != "":
         print(colorama.Fore.RED+colorama.Style.BRIGHT+"\n! PLEASE UPDATE YOUR LAUNCHER !"+colorama.Style.RESET_ALL+"\nWe will continue to provide backwards compatability to previous launcher versions, however we remind you to update, as you are missing out on key features, such as multi-threading and improved speeds!\n")

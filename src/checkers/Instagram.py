@@ -1,13 +1,13 @@
 
-import requests, random, colorama, time
+import httpx, random, colorama, time
 
 endpoint = "https://www.instagram.com/api/v1/web/accounts/web_create_ajax/attempt/"
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = requests.post(endpoint, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')}, headers={'X-CSRFToken':'en'}, data={'email':'','username':username,'first_name':'','opt_into_one_tap':"false"})
+        r = httpx.post(endpoint, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')}, headers={'X-CSRFToken':'en'}, data={'email':'','username':username,'first_name':'','opt_into_one_tap':"false"})
     else:
-        r = requests.post(endpoint, headers={'X-CSRFToken':'en'}, data={'email':'','username':username,'first_name':'','opt_into_one_tap':"false"})
+        r = httpx.post(endpoint, headers={'X-CSRFToken':'en'}, data={'email':'','username':username,'first_name':'','opt_into_one_tap':"false"})
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)

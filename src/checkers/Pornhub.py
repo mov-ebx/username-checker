@@ -1,13 +1,13 @@
 
-import requests, random, colorama, time
+import httpx, random, colorama, time
 
 endpoint = "https://www.pornhub.com/users/"
 
 def check(username:str, proxy:str="", chances:int=0):
     if proxy != "":
-        r = requests.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = httpx.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = requests.get(endpoint+username)
+        r = httpx.get(endpoint+username)
     if 'Error Page Not Found' in r.text:
         return username
     elif 'Last Login' in r.text:

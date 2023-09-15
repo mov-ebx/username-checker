@@ -1,4 +1,4 @@
-import os, requests, random
+import os, httpx, random
 from colorama import Fore, Back, Style
 import concurrent.futures
 
@@ -25,9 +25,9 @@ title()
 
 # Auto updater
 def download_checkers():
-    VERS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/VERSION').text
-    CHECKERS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/checkers.json').json()
-    PRESETS = requests.get('https://raw.githubusercontent.com/'+REPO+'/main/data/presets.json').json()
+    VERS = httpx.get('https://raw.githubusercontent.com/'+REPO+'/main/VERSION').text
+    CHECKERS = httpx.get('https://raw.githubusercontent.com/'+REPO+'/main/data/checkers.json').json()
+    PRESETS = httpx.get('https://raw.githubusercontent.com/'+REPO+'/main/data/presets.json').json()
     url = 'https://raw.githubusercontent.com/'+REPO+'/main/src/checkers/'
     VER = open(DIR+'/version', 'r').readlines()[0]
     print('Checking for updates...')
@@ -37,11 +37,11 @@ def download_checkers():
     for i in range(len(CHECKERS)):
         if os.path.exists(DIR+'/checkers/'+checkers[i]) == False:
             print(' + Downloading '+checkers[i]+'...')
-            open(DIR+'/checkers/'+checkers[i], 'x').writelines(requests.get(url+checkers[i]).text)
+            open(DIR+'/checkers/'+checkers[i], 'x').writelines(httpx.get(url+checkers[i]).text)
             downloaded += 1
         elif float(CHECKERS[checkers[i]]) > float(VER):
             print(' + Updating '+checkers[i]+'...')
-            open(DIR+'/checkers/'+checkers[i], 'w').writelines(requests.get(url+checkers[i]).text)
+            open(DIR+'/checkers/'+checkers[i], 'w').writelines(httpx.get(url+checkers[i]).text)
             updated += 1
         #else:
         #    print(' + '+checkers[i]+' is up to date!')
@@ -53,11 +53,11 @@ def download_checkers():
     for i in range(len(PRESETS)):
         if os.path.exists(DIR+'/presets/'+presets[i]) == False:
             print(' + Downloading '+presets[i]+'...')
-            open(DIR+'/presets/'+presets[i], 'x').writelines(requests.get(url+presets[i]).text)
+            open(DIR+'/presets/'+presets[i], 'x').writelines(httpx.get(url+presets[i]).text)
             downloaded += 1
         elif float(PRESETS[presets[i]]) > float(VER):
             print(' + Updating '+presets[i]+'...')
-            open(DIR+'/presets/'+presets[i], 'w').writelines(requests.get(url+presets[i]).text)
+            open(DIR+'/presets/'+presets[i], 'w').writelines(httpx.get(url+presets[i]).text)
             updated += 1
         #else:
         #    print(' + '+presets[i]+' is up to date!')

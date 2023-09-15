@@ -1,2 +1,2 @@
 colorama
-requests
+httpx

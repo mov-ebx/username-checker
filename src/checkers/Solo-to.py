@@ -1,13 +1,13 @@
 
-import requests, random, colorama, time
+import httpx, random, colorama, time
 
 endpoint = "https://api.solo.to/"
 
 def check(username:str, proxy:str=""):
     if proxy != "":
-        r = requests.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
+        r = httpx.get(endpoint+username, proxies={proxy.split('|')[0]:proxy.split('|')[1].strip('\n')})
     else:
-        r = requests.get(endpoint+username, headers={'user-agent':'Mozilla/5.0 (Kanye) West/5.765 Ye/42.1 (mov-ebx/username-checker on git hub)'})
+        r = httpx.get(endpoint+username, headers={'user-agent':'Mozilla/5.0 (Kanye) West/5.765 Ye/42.1 (mov-ebx/username-checker on git hub)'})
     if r.status_code == 429:
         time.sleep(5)
         return check(username=username, proxy=proxy)
